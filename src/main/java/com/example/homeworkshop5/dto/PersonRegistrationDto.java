@@ -14,8 +14,19 @@ import javax.validation.constraints.Size;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PersonCreationDto {
+public class PersonRegistrationDto {
 
+    @NotBlank(message = "Username cannot be null")
+    @Size(min = 2, max = 255, message = "Username  must have at least 2 characters")
+    private String username;
+
+    @NotBlank(message = "Password cannot be null")
+    @Size(min = 2, max = 255, message = "Password must have at least 2 characters")
+    private String password;
+
+    @NotBlank(message = "PasswordConfirm cannot be null")
+    @Size(min = 2, max = 255, message = "PasswordConfirm must have at least 2 characters")
+    private String passwordConfirm;
     @NotBlank(message = "Name cannot be null")
     @Size(min = 2, max = 255, message = "Name must have at least 2 characters")
     private String name;
@@ -28,12 +39,4 @@ public class PersonCreationDto {
     @Email(message = "Should have email format")
     @NonNull
     private String email;
-
-    @NotBlank(message = "Username cannot be null")
-    @Size(min = 2, max = 255, message = "Username  must have at least 2 characters")
-    private String username;
-
-    @NotBlank(message = "Password cannot be null")
-    @Size(min = 2, max = 255, message = "Password must have at least 2 characters")
-    private String password;
 }

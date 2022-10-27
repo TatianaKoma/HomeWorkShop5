@@ -6,6 +6,7 @@ import com.example.homeworkshop5.mapper.ProductMapper;
 import com.example.homeworkshop5.model.Product;
 import com.example.homeworkshop5.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,12 +22,14 @@ import java.util.stream.Collectors;
 @Controller
 @Validated
 public class ProductViewController {
+
     @Autowired
     private ProductService productService;
     @Autowired
     private ProductMapper mapper;
 
     @RequestMapping("/getProducts")
+    @PreAuthorize("isAuthenticated()")
     public String getAllProducts(Model model) {
         List<Product> products = productService.getProducts();
         List<ProductDto> productsDTO = products.stream().map(mapper::toProductDTO).collect(Collectors.toList());
@@ -35,12 +38,14 @@ public class ProductViewController {
     }
 
     @RequestMapping("/addNewProduct")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String addNewProduct(Model model) {
         model.addAttribute("product", new ProductDto());
         return "productInfo";
     }
 
     @RequestMapping("/saveProduct")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String saveProduct(@Valid @ModelAttribute("product") ProductCreationDto productCreationDto,
                               BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -53,6 +58,7 @@ public class ProductViewController {
     }
 
     @RequestMapping("/updateProduct")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String updateProduct(@RequestParam("productId") int id, Model model) {
         Product product = productService.getProductById(id);
         ProductDto productDto = mapper.toProductDTO(product);
@@ -61,6 +67,7 @@ public class ProductViewController {
     }
 
     @RequestMapping("/saveUpdatedProduct")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String saveUpdatedProduct(@Valid @ModelAttribute("updatedProduct") ProductDto productDto,
                                      BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -73,6 +80,7 @@ public class ProductViewController {
     }
 
     @RequestMapping("/deleteProduct")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String deleteProduct(@RequestParam("productId") int id) {
         productService.deleteProductById(id);
         return "redirect:/getProducts";

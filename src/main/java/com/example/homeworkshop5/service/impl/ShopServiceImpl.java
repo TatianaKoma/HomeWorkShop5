@@ -2,21 +2,20 @@ package com.example.homeworkshop5.service.impl;
 
 import com.example.homeworkshop5.exception.NotFoundException;
 import com.example.homeworkshop5.model.Shop;
-import com.example.homeworkshop5.repository.ProductRepository;
 import com.example.homeworkshop5.repository.ShopRepository;
 import com.example.homeworkshop5.service.ShopService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import static com.example.homeworkshop5.utils.ResponseMessages.SHOP_NOT_FOUND;
+
+import static com.example.homeworkshop5.ResponseMessages.SHOP_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor
 public class ShopServiceImpl implements ShopService {
 
     private final ShopRepository shopRepository;
-    private final ProductRepository productRepository;
 
     @Override
     public Shop createShop(Shop shop) {

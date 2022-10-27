@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.example.homeworkshop5.utils.ResponseMessages.PRODUCT_NOT_FOUND;
+import static com.example.homeworkshop5.ResponseMessages.PRODUCT_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor

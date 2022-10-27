@@ -10,6 +10,7 @@ import com.example.homeworkshop5.model.Cart;
 import com.example.homeworkshop5.model.Product;
 import com.example.homeworkshop5.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,6 +26,7 @@ import java.util.stream.Collectors;
 @Controller
 @Validated
 public class CartViewController {
+
     @Autowired
     private CartService cartService;
     @Autowired
@@ -33,6 +35,7 @@ public class CartViewController {
     private ProductMapper productMapper;
 
     @RequestMapping("/getCarts")
+    @PreAuthorize("isAuthenticated()")
     public String getAllCarts(Model model) {
         List<Cart> carts = cartService.getCarts();
         List<CartDto> cartDto = carts.stream().map(cartMapper::toCartDTO).collect(Collectors.toList());
@@ -41,12 +44,14 @@ public class CartViewController {
     }
 
     @RequestMapping("/addNewCart")
+    @PreAuthorize("isAuthenticated()")
     public String addNewCart(Model model) {
         model.addAttribute("cart", new CartDto());
         return "cartInfo";
     }
 
     @RequestMapping("/saveCart")
+    @PreAuthorize("isAuthenticated()")
     public String saveCart(@Valid @ModelAttribute("cart") CartCreationDto cartCreationDto,
                            BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -59,6 +64,7 @@ public class CartViewController {
     }
 
     @RequestMapping("/addProductToCart")
+    @PreAuthorize("isAuthenticated()")
     public String updateCart(@RequestParam("cartId") int id, Model model) {
         Cart cart = cartService.getCartById(id);
         CartDto cartDto = cartMapper.toCartDTO(cart);
@@ -67,6 +73,7 @@ public class CartViewController {
     }
 
     @RequestMapping("/saveProductToCart")
+    @PreAuthorize("isAuthenticated()")
     public String saveProductToCart(@Valid @ModelAttribute("updatedCart") CartUpdateDto cartUpdateDto,
                                     BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -78,6 +85,7 @@ public class CartViewController {
     }
 
     @RequestMapping("/listProducts")
+    @PreAuthorize("isAuthenticated()")
     public String getAllProductsFromCart(@RequestParam("cartId") int id, Model model) {
         List<Product> productList = cartService.getListProductsByCartId(id);
         List<ProductDto> productDtos = productList.stream().map(productMapper::toProductDTO).collect(Collectors.toList());
@@ -86,6 +94,7 @@ public class CartViewController {
     }
 
     @RequestMapping("/deleteCart")
+    @PreAuthorize("isAuthenticated()")
     public String deleteCart(@RequestParam("cartId") int id) {
         cartService.deleteCartById(id);
         return "redirect:/getCarts";

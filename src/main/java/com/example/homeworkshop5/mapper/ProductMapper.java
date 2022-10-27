@@ -8,8 +8,8 @@ import com.example.homeworkshop5.model.Shop;
 import com.example.homeworkshop5.repository.ShopRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import static com.example.homeworkshop5.utils.ResponseMessages.SHOP_NOT_FOUND;
 
+import static com.example.homeworkshop5.ResponseMessages.SHOP_NOT_FOUND;
 
 @Component
 @RequiredArgsConstructor

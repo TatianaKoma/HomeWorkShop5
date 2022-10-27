@@ -6,6 +6,7 @@ import com.example.homeworkshop5.mapper.ShopMapper;
 import com.example.homeworkshop5.model.Shop;
 import com.example.homeworkshop5.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,12 +22,14 @@ import java.util.stream.Collectors;
 @Controller
 @Validated
 public class ShopViewController {
+
     @Autowired
     private ShopService shopService;
     @Autowired
     private ShopMapper mapper;
 
     @RequestMapping("/getShops")
+    @PreAuthorize("isAuthenticated()")
     public String getAllShops(Model model) {
         List<ShopDto> shopDto = shopService.getShops().stream()
                 .map(mapper::toShopDTO)
@@ -36,12 +39,14 @@ public class ShopViewController {
     }
 
     @RequestMapping("/addNewShop")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String addNewShop(Model model) {
         model.addAttribute("shop", new ShopDto());
         return "shopInfo";
     }
 
     @RequestMapping("/saveShop")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String saveShop(@Valid @ModelAttribute("shop") ShopCreationDto shopCreationDto,
                            BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -54,6 +59,7 @@ public class ShopViewController {
     }
 
     @RequestMapping("/deleteShop")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String deleteShop(@RequestParam("shopId") int id) {
         shopService.deleteShopById(id);
         return "redirect:/getShops";

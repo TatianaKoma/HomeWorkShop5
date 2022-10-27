@@ -15,10 +15,10 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 
-import static com.example.homeworkshop5.utils.ResponseMessages.CART_NOT_FOUND;
-import static com.example.homeworkshop5.utils.ResponseMessages.PERSON_NOT_FOUND;
-import static com.example.homeworkshop5.utils.ResponseMessages.PRODUCT_EXISTS;
-import static com.example.homeworkshop5.utils.ResponseMessages.PRODUCT_NOT_EXISTS;
+import static com.example.homeworkshop5.ResponseMessages.CART_NOT_FOUND;
+import static com.example.homeworkshop5.ResponseMessages.PERSON_NOT_FOUND;
+import static com.example.homeworkshop5.ResponseMessages.PRODUCT_EXISTS;
+import static com.example.homeworkshop5.ResponseMessages.PRODUCT_NOT_EXISTS;
 
 @Service
 @RequiredArgsConstructor

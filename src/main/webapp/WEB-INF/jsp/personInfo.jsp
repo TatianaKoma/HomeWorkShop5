@@ -20,6 +20,12 @@
     Email <form:input path="email"/>
     <form:errors path="email"/>
     <br><br>
+    Username <form:input path="username"/>
+    <form:errors path="username"/>
+    <br><br>
+    Password <form:input path="password"/>
+    <form:errors path="password"/>
+    <br><br>
 
     <input type="submit" value="OK">
 </form:form>

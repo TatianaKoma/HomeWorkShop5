@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.example.homeworkshop5.utils.ResponseMessages.PERSON_NOT_FOUND;
+import static com.example.homeworkshop5.ResponseMessages.PERSON_NOT_FOUND;
 
 @Component
 @RequiredArgsConstructor

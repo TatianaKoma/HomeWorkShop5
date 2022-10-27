@@ -54,7 +54,7 @@
        onclick="window.location.href = 'addNewCart'"/>
 
 <input type="button" value="Back"
-       onclick="window.location.href = 'firstView'"/>
+       onclick="window.location.href = 'index'"/>
 </body>
 
 </html>
